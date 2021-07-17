@@ -200,7 +200,7 @@ const KrowdyOneTap = ({
   }, [ onUpdateState ])
 
   const _handleResendPassword = useCallback(async ()=>{
-    const { success } = await verifyAccount(currentUser)
+    const { success } = await verifyAccount(currentUser, true)
     if(success)
       setErrorLogin(false)
 
@@ -208,6 +208,7 @@ const KrowdyOneTap = ({
   }, [ currentUser, verifyAccount ])
 
   const _handleForgotPassword = useCallback(()=>{
+    setPasswordValue('')
     onChangeView('recovery')
     verifyAccount(valueInput, true)
   // eslint-disable-next-line react-hooks/exhaustive-deps
