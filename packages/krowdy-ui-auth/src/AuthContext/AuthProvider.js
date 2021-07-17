@@ -184,9 +184,7 @@ const AuthProvider = ({
         return {}
       })
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient, authClient.current ])
+  }, [ clientId, clientSecret, sendMessageToLoginApp, state.allowAds, storage ])
 
   const _handleLoginByCode = useCallback(async ({ code, value, type, keepSession }) => {
     if(authClient && authClient.current) {
@@ -238,9 +236,7 @@ const AuthProvider = ({
         return {}
       })
     }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient, authClient.current, clientSecret, clientId, state.allowAds ])
+  }, [ state.allowAds, clientId, clientSecret, storage, sendMessageToLoginApp ])
 
   const _handleSuccessLogin = useCallback((successLogin) => {
     setState(prev => ({
@@ -296,9 +292,7 @@ const AuthProvider = ({
         }))
       }
     }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ authClient, authClient.current ])
+  }, [ clientId, clientSecret, referrer, sendMessageToLoginApp, state.allowAds, state.keepSession, storage ])
 
   const _handleAllowAds = useCallback(()=>{
     setState(prev => ({
