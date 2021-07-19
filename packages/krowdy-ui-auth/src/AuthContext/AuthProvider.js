@@ -351,7 +351,7 @@ const AuthProvider = ({
     if(accessToken || refreshToken)
     {authClient.current.logout({ accessToken, refreshToken })
       .then((res) => {
-        const { success = null } = res
+        const { success } = res
         if(!success) return console.error('Error when user closing session')
         deleteSession()
         sendMessageToLoginApp('unlogged')
