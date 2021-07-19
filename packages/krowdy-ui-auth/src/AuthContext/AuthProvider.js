@@ -26,7 +26,6 @@ const AuthProvider = ({
   const authClient  = useRef()
   const iframeRef = useRef()
   const [ state, setState ] = useState(initialState)
-  const [ msalInstance, setMsalInstance ] = useState(null)
 
   useEffect(() => {
     if(baseUrl) authClient.current = new AuthClient(baseUrl)
@@ -344,7 +343,7 @@ const AuthProvider = ({
   const _handleLogOut = useCallback(() => {
     const deleteSession = () => {
       clearStorage(storage, [ 'accessToken', 'iduser', 'refreshToken' ])
-      msalInstance && msalInstance.logout()
+      sessionStorage.clear()
     }
 
     const { accessToken, refreshToken } = state
@@ -352,7 +351,7 @@ const AuthProvider = ({
     if(accessToken || refreshToken)
     {authClient.current.logout({ accessToken, refreshToken })
       .then((res) => {
-        const { data: { success = null } = {} } = res
+        const { success = null } = res
         if(!success) return console.error('Error when user closing session')
         deleteSession()
         sendMessageToLoginApp('unlogged')
@@ -365,11 +364,7 @@ const AuthProvider = ({
       deleteSession()
       sendMessageToLoginApp('unlogged')
     }
-  }, [ msalInstance, sendMessageToLoginApp, state, storage ])
-
-  const _handleMsalInstanceChange = useCallback((msal) => {
-    setMsalInstance(msal)
-  }, [])
+  }, [ sendMessageToLoginApp, state, storage ])
 
   const _handleUpdateState = useCallback((data)=>{
     setState(prev=>({
@@ -442,7 +437,6 @@ const AuthProvider = ({
         onChangeView         : _handleChangeView,
         onClose              : _handleCloseModal,
         onFlowFinished       : _handleFlowFinished,
-        onMsalInstanceChange : _handleMsalInstanceChange,
         onOpen               : _handleOpenModal,
         onPasswordNotify     : _handlePasswordNotify,
         onSuccessLogin       : _handleSuccessLogin,
