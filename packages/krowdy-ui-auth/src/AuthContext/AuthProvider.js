@@ -5,6 +5,7 @@ import AuthClient from '../Client'
 import { initialState, updateStorage, clearStorage } from './utils'
 import PasswordNotify from '../LoginSinglePage/PasswordNotify'
 import OnetapAuth from '../OnetapAuth'
+import OnetapGoogle from '../OnetapGoogle/OnetapGoogle'
 
 const AuthProvider = ({
   children,
@@ -454,6 +455,9 @@ const AuthProvider = ({
         validateSocialNetwork: _handleValidateSocial,
         verifyAccount        : _handleVerifyAccount
       }}>
+      <OnetapGoogle
+        clientId={google.clientId}
+        urlUri={google.redirectUri || 'http://localhost:3000/'} />
       {
         urlLogin ?
           <iframe
