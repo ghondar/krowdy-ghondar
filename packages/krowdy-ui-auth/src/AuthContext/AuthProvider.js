@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import LoginContext from './LoginContext'
 import AuthClient from '../Client'
 import { initialState, updateStorage, clearStorage } from './utils'
+import { parseQueryString } from '../utils'
 import PasswordNotify from '../LoginSinglePage/PasswordNotify'
 import OnetapAuth from '../OnetapAuth'
 import OnetapGoogle from '../OnetapGoogle/OnetapGoogle'
+import LinkedInPopUp from '../LoginSinglePage/LinkedInPopUp'
 
 const AuthProvider = ({
   children,
@@ -28,6 +30,7 @@ const AuthProvider = ({
   const iframeRef = useRef()
   const [ state, setState ] = useState(initialState)
   const [ msalInstance, setMsalInstance ] = useState(null)
+  const paramsLinkedIn = typeof window !== 'undefined' ? parseQueryString(window.location.search) : {}
 
   useEffect(() => {
     if(baseUrl) authClient.current = new AuthClient(baseUrl)
@@ -479,6 +482,7 @@ const AuthProvider = ({
         ) : null
       }
       {children}
+      {paramsLinkedIn.code || paramsLinkedIn.error ? <LinkedInPopUp /> : null}
       {
         state.openBackdrop ?(
           <OnetapAuth />
