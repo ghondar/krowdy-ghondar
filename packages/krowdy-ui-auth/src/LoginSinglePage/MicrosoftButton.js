@@ -36,8 +36,7 @@ const MicrosoftButton = () => {
   const classes = useStyles()
   const {
     microsoftCredentials: { clientId, redirectUri } = {},
-    validateSocialNetwork,
-    onMsalInstanceChange
+    validateSocialNetwork
   } = useAuth()
 
   const [ verifying, setVerifying ] = useState(false)
@@ -54,16 +53,15 @@ const MicrosoftButton = () => {
       const { accessToken } = response
 
       setVerifying(true)
-      onMsalInstanceChange(msal)
       validateSocialNetwork('microsoft', { tokenId: accessToken })
     }
-  }, [ onMsalInstanceChange, validateSocialNetwork, verifying ])
+  }, [ validateSocialNetwork, verifying ])
 
   return (
     <MicrosoftLogin
       authCallback={handleResponseMicrosoft}
       clientId={clientId}
-      forceRedirectStrategy
+      // forceRedirectStrategy
       redirectUri={redirectUri}>
       <button className={classes.btnSocialMicrosoft}>
         <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
