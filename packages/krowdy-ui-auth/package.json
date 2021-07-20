@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/auth",
-  "version": "0.0.27",
+  "version": "0.0.29",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -34,6 +34,7 @@
   "dependencies": {
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
+    "react-helmet": "^6.1.0",
     "react-linkedin-login-oauth2": "^1.0.9",
     "react-microsoft-login": "^1.15.0"
   },
