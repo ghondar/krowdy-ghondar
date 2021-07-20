@@ -3,11 +3,10 @@ import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
 import MicrosoftButton from './MicrosoftButton'
-import LinkedInPopUp from './LinkedInPopUp'
 import LinkedInButton from './LinkedinButton'
 import KrowdyOneTap from './KrowdyOneTap'
 import Footer from './Footer'
-import { useAuth, parseQueryString } from '../utils'
+import { useAuth } from '../utils'
 import FacebookButton from './FacebookButton'
 
 const getTitleByView = (type, text) => {
@@ -46,8 +45,6 @@ const LoginSinglePage = () => {
   const [ currentUser, setCurrentUser ] = useState('')
 
   const { loginWith, referrer, typeView, onChangeView } = useAuth()
-
-  const paramsLinkedin = parseQueryString(window.location.search)
 
   const _handleChangeView = useCallback((view) => {
     setPrevViews([ ...prevViews, typeView ])
@@ -111,11 +108,7 @@ const LoginSinglePage = () => {
           typeView === 'main' ? (
             <>
               <GoogleButton />
-              {paramsLinkedin.code || paramsLinkedin.error ? (
-                <LinkedInPopUp />
-              ) : (
-                <LinkedInButton />
-              )}
+              <LinkedInButton />
               {
                 referrer !== 'portales' ?
                   <MicrosoftButton /> : null
