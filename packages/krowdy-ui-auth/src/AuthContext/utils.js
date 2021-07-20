@@ -1,19 +1,20 @@
 // import { krowdyTheme, createTheme } from '@krowdy-ui/core'
 
 export const initialState = {
-  accessToken       : '',
-  allowAds          : true,
-  flowFinished      : false,
-  iduser            : '',
-  isNew             : false,
-  keepSession       : true,
-  loading           : false,
-  loadingAuth       : true,
-  openBackdrop      : false,
-  openPasswordNotify: false,
-  refreshToken      : '',
-  successLogin      : false,
-  typeView          : 'main'
+  accessToken        : '',
+  allowAds           : true,
+  flowFinished       : false,
+  iduser             : '',
+  isNew              : false,
+  keepSession        : true,
+  loading            : false,
+  loadingAuth        : true,
+  oneTapGoogleDisplay: false,
+  openBackdrop       : false,
+  openPasswordNotify : false,
+  refreshToken       : '',
+  successLogin       : false,
+  typeView           : 'main'
 }
 
 // export const defaultTheme = createTheme(krowdyTheme)

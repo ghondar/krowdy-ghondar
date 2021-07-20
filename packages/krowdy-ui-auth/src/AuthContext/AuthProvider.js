@@ -6,6 +6,7 @@ import { initialState, updateStorage, clearStorage } from './utils'
 import { parseQueryString } from '../utils'
 import PasswordNotify from '../LoginSinglePage/PasswordNotify'
 import OnetapAuth from '../OnetapAuth'
+import OnetapGoogle from '../OnetapGoogle/OnetapGoogle'
 import LinkedInPopUp from '../LoginSinglePage/LinkedInPopUp'
 
 const AuthProvider = ({
@@ -457,6 +458,11 @@ const AuthProvider = ({
         validateSocialNetwork: _handleValidateSocial,
         verifyAccount        : _handleVerifyAccount
       }}>
+      {
+        !state.successLogin && !state.loadingAuth ?
+          <OnetapGoogle /> :
+          null
+      }
       {
         urlLogin ?
           <iframe
