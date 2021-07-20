@@ -29,7 +29,7 @@ const AuthProvider = ({
   const iframeRef = useRef()
   const [ state, setState ] = useState(initialState)
   const [ msalInstance, setMsalInstance ] = useState(null)
-  const paramsLinkedIn = parseQueryString(window.location.search)
+  const paramsLinkedIn = typeof window !== 'undefined' ? parseQueryString(window.location.search) : {}
 
   useEffect(() => {
     if(baseUrl) authClient.current = new AuthClient(baseUrl)

@@ -21,10 +21,10 @@ export default function () {
         },
         microsoft: {
           clientId   : '8a78aebe-f6c7-4371-9974-c72d6cd019bc',
-          redirectUri: 'http://localhost:3001'
+          redirectUri: 'http://localhost:3000/views/onetapauth'
         }
       }}
-      urlLogin='http://localhost:3001'>
+      urlLogin='http://localhost:3000/views/onetapauth'>
       <Test />
     </AuthContext>
   )
