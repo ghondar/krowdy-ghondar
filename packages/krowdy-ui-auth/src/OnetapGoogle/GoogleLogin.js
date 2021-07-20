@@ -1,24 +1,24 @@
 /* global google */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { makeStyles } from '@krowdy-ui/core'
+import { useAuth } from '../utils'
 
-const Google = ({
-  clientId,
-  // urlUri,
-  validateSocialNetwork = () => {}
-}) => {
-  const [ hasError, setHasError ] = useState(1)
+const GoogleLogin = ({ isLoaded }) => {
+  const classes = useStyles()
+  const { onUpdateState, validateSocialNetwork, googleCredentials : { clientId } = {} } = useAuth() || {}
 
-  const handleResponseGoogle = (response) => {
-    const email = ''// jwt_decode(response.credential)
-    validateSocialNetwork(response.credential, 'google', email)
+  const _handleResponseGoogle = (response) => {
+    const { credential : tokenId } = response
+
+    validateSocialNetwork( 'google', { tokenId })
   }
 
   useEffect(() => {
-    if(hasError)
+    if(isLoaded)
       try {
         google.accounts.id.initialize({
           auto_select          : true,
-          callback             : handleResponseGoogle,
+          callback             : _handleResponseGoogle,
           cancel_on_tap_outside: true,
           client_id            : clientId,
           prompt_parent_id     : 'googleContainer'
@@ -26,25 +26,28 @@ const Google = ({
 
         google.accounts.id.prompt(notification => {
           if(notification.isDisplayed())
-            console.log('LOGUEADOOOO')
-
+            onUpdateState({ oneTapGoogleDisplay: true })
           else if(notification.getSkippedReason() === 'user_cancel' || notification.getNotDisplayedReason())
-            console.log('🚀 ~ file: Google.js ~ line 18 ~ useEffect ~ notification', notification)
-
-        // setIsSignedIN(false)
+            onUpdateState({ oneTapGoogleDisplay: false })
         })
-        setHasError(null)
       } catch (error) {
-        setHasError(prev=> prev + 1)
+        console.log(error)
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ hasError ])
+  }, [ isLoaded ])
 
   return (
-    <div
-      // className={classes.googleContainer}
-      id='googleContainer' />
+    <div className={classes.googleContainer} id='googleContainer' />
   )
 }
 
-export default React.memo(Google)
+const useStyles = makeStyles(({ zIndex })=>({
+  googleContainer: {
+    position: 'fixed',
+    right   : 20,
+    top     : 20,
+    zIndex  : zIndex.modal + 1
+  }
+}), { name: 'GoogleLogin' })
+
+export default React.memo(GoogleLogin)

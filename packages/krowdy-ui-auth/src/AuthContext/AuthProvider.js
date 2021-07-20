@@ -455,9 +455,11 @@ const AuthProvider = ({
         validateSocialNetwork: _handleValidateSocial,
         verifyAccount        : _handleVerifyAccount
       }}>
-      <OnetapGoogle
-        clientId={google.clientId}
-        urlUri={google.redirectUri || 'http://localhost:3000/'} />
+      {
+        !state.successLogin && !state.loadingAuth ?
+          <OnetapGoogle /> :
+          null
+      }
       {
         urlLogin ?
           <iframe
