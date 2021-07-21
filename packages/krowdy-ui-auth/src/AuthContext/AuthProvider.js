@@ -24,7 +24,8 @@ const AuthProvider = ({
   referrer,
   clientSecret,
   loginWith = 'only-email',
-  clientId
+  clientId,
+  withGoogle
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -459,7 +460,7 @@ const AuthProvider = ({
         verifyAccount        : _handleVerifyAccount
       }}>
       {
-        !state.successLogin && !state.loadingAuth ?
+        withGoogle && !state.successLogin && !state.loadingAuth ?
           <OnetapGoogle /> :
           null
       }
@@ -519,7 +520,8 @@ AuthProvider.propTypes = {
   }),
   stateContext: PropTypes.any,
   storage     : PropTypes.string,
-  urlLogin    : PropTypes.string
+  urlLogin    : PropTypes.string,
+  withGoogle  : PropTypes.bool
 }
 
 export default React.memo(AuthProvider)

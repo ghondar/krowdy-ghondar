@@ -24,7 +24,8 @@ export type AuthContextProps = {
   referrer?: string;
   clientSecret?: string;
   clientId?: string;
-  loginWith?: string
+  loginWith?: string;
+  withGoogle?: boolean
 };
 
 declare var AuthContext: React.ComponentType<AuthContextProps>;
