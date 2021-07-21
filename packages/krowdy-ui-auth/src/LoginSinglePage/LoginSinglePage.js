@@ -79,9 +79,9 @@ const LoginSinglePage = () => {
         ) : null
       }
       <div className={classes.imageContainer}>
-        <a className={classes.headerImage} href={'http://'}>
+        <div className={classes.headerImage}>
           <img alt='abeja-img' height='100%'  src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
-        </a>
+        </div>
         <Typography className={classes.titleCenter} variant='h5'>
           {getTitleByView(typeView, currentUser)}
         </Typography>
@@ -149,8 +149,8 @@ const useStyles = makeStyles(({ spacing }) => ({
     marginTop: spacing(3)
   },
   headerImage: {
-    marginBottom: spacing(3.5),
-    maxHeight   : 50
+    height      : 70,
+    marginBottom: spacing(1.5)
   },
   imageContainer: {
     alignItems    : 'center',
