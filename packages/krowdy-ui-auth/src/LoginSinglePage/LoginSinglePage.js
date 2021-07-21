@@ -150,7 +150,7 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   headerImage: {
     height      : 70,
-    marginBottom: spacing(3)
+    marginBottom: spacing(1.5)
   },
   imageContainer: {
     alignItems    : 'center',
