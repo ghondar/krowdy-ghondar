@@ -36,9 +36,9 @@ export const updateStorage = (storage, objUpd) => {
     for (const key in objUpd)
       localStorage.setItem(key, objUpd[key])
 
-  else if(storage ==='cookies')
+  /* else if(storage ==='cookies')
     for (const key in objUpd)
-      document.cookie = `${key}=${objUpd[key]}`
+      document.cookie = `${key}=${objUpd[key]}` */
 }
 
 export const clearStorage = (storage, arrKeys) => {
