@@ -69,8 +69,9 @@ const useStyles = makeStyles(({ zIndex, spacing, breakpoints }) => ({
     width  : '100%'
   },
   mainContainer: {
-    maxWidth                   : 576,
+    height                     : 615,
     position                   : 'relative',
+    width                      : 576,
     [breakpoints.down('767px')]: {
       height  : '100%',
       overflow: 'auto'

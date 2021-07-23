@@ -18,7 +18,7 @@ const getTitleByView = (type, text) => {
     case 'password':
       return `Ingresa tu contraseña para ${text}`
     case 'register':
-      return '¿Cómo te llamas?'
+      return 'Registra tus datos'
     case 'verify':
       return 'Verificación de cuenta'
     case 'recovery':
@@ -44,7 +44,7 @@ const LoginSinglePage = () => {
   const [ prevViews, setPrevViews ] = useState([])
   const [ currentUser, setCurrentUser ] = useState('')
 
-  const { loginWith, referrer, typeView, onChangeView } = useAuth()
+  const { loginWith, typeView, onChangeView } = useAuth()
 
   const _handleChangeView = useCallback((view) => {
     setPrevViews([ ...prevViews, typeView ])
@@ -74,13 +74,13 @@ const LoginSinglePage = () => {
             className={classes.buttonBack}
             onClick={_handleChangePrevView}
             startIcon={<ArrowBackIosIcon fontSize='small' />}>
-          Atrás
+            Atrás
           </Button>
         ) : null
       }
       <div className={classes.imageContainer}>
         <div className={classes.headerImage}>
-          <img alt='abeja-img' height='100%'  src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
+          <img alt='abeja-img' src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
         </div>
         <Typography className={classes.titleCenter} variant='h5'>
           {getTitleByView(typeView, currentUser)}
@@ -109,10 +109,7 @@ const LoginSinglePage = () => {
             <>
               <GoogleButton />
               <LinkedInButton />
-              {
-                referrer !== 'portales' ?
-                  <MicrosoftButton /> : null
-              }
+              <MicrosoftButton />
               <FacebookButton />
               <Button
                 className={classes.buttonKrowdy}
@@ -138,19 +135,24 @@ const LoginSinglePage = () => {
 
 const useStyles = makeStyles(({ spacing }) => ({
   bodyContainer: {
-    padding: spacing(4, 0)
+    padding: spacing(3, 0)
   },
   buttonBack: {
-    left    : 12,
-    position: 'absolute',
-    top     : 12
+    fontWeight: 700,
+    left      : 12,
+    position  : 'absolute',
+    top       : 12
   },
   buttonKrowdy: {
     marginTop: spacing(3)
   },
   headerImage: {
-    height      : 70,
-    marginBottom: spacing(1.5)
+    alignItems    : 'center',
+    display       : 'flex',
+    justifyContent: 'center',
+    margin        : spacing(2.5, 0),
+    maxHeight     : 64,
+    maxWidth      : 150
   },
   imageContainer: {
     alignItems    : 'center',

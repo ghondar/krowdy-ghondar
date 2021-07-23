@@ -11,53 +11,57 @@ const Footer = ({
   typeView
 }) => {
   const classes = useStyles()
-  const { allowAds, onAllowAds } = useAuth()
+  const { allowAds, onAllowAds, referrer } = useAuth()
 
   return (
     <div className={classes.containerFooter}>
-      <Typography className={classes.content} component='div' >
-Recuerda que al usar Krowdy aceptas los {' '}
-        <a
-          className={classes.textRef}
-          href={urlsRef['conditionsAndTerms']}
-          rel='noreferrer' target='_blank'>
-     Términos y condiciones
-        </a>
-        {' '}y su{' '}
-        <a
-          className={classes.textRef}
-          href={urlsRef['privacyPolicy']}
-          rel='noreferrer' target='_blank'>
-        Política de privacidad.
-        </a>
-        {
-          typeView === 'main' && allowAds ? (
-            <>
-              {' '}
-               Asimismo, si no deseas que usemos tus datos con fines publicitarios,
-              {' '}
-              <Typography
+      {typeView === 'main' ?
+        <Typography className={classes.content} component='div' >
+            Recuerda que al usar Krowdy aceptas los {' '}
+          <a
+            className={classes.textRef}
+            href={urlsRef['conditionsAndTerms']}
+            rel='noreferrer' target='_blank'>
+              Términos y condiciones
+          </a>
+          {' '}y su{' '}
+          <a
+            className={classes.textRef}
+            href={urlsRef['privacyPolicy']}
+            rel='noreferrer' target='_blank'>
+            Política de privacidad.
+          </a>
+          {
+            typeView === 'main' && allowAds ? (
+              <>
+                {' '}
+                   Asimismo, si no deseas que usemos tus datos con fines publicitarios,
+                {' '}
+                <Typography
+                  className={classes.textNoPermission}
+                  onClick={onAllowAds}>
+                      ingresa aquí.
+                </Typography>.
+              </>
+            ) : null
+          }
+          {
+            typeView === 'main' && !allowAds ? (
+              <>
+                {' '}
+                 Asimismo, no estás aceptando nuestras políticas de publicidad.
+              </>
+            ) : null
+          }
+        </Typography> : null }
 
-                className={classes.textNoPermission}
-                onClick={onAllowAds}>
-            ingresa aquí.
-              </Typography>.
-            </>
-          ) : null
-        }
-        {
-          typeView === 'main' && !allowAds ? (
-            <>
-              {' '}
-             Asimismo, no estás aceptando nuestras políticas de publicidad.
-            </>
-          ) : null
-        }
-      </Typography>
-      <img
-        alt='powered-krowdy'
-        className={classes.footerImage}
-        src='//cdn.krowdy.com/auth/powered_by_krowdy.png' />
+      {
+        referrer === 'portales' ?
+          <img
+            alt='powered-krowdy'
+            className={classes.footerImage}
+            src='//cdn.krowdy.com/auth/powered_by_krowdy.png' /> : null
+      }
     </div>
   )
 }
@@ -81,6 +85,7 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   textNoPermission: {
     color         : palette.grey[600],
     cursor        : 'pointer',
+    display       : 'inline',
     fontWeight    : 'bold',
     textDecoration: 'underline'
   },

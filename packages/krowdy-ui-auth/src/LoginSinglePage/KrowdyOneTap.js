@@ -51,7 +51,6 @@ const KrowdyOneTap = ({
     loginWith,
     onUpdatePassword,
     onUpdateState,
-    referrer,
     onChangeView
   } = useAuth()
   const [ loginkey, setLoginKey ] = useState(null)
@@ -304,7 +303,7 @@ const KrowdyOneTap = ({
                 root : classes.textfield
               }
             }}
-            label='Nombre'
+            label='Nombres'
             name='firstName'
             onChange={_handleChangeRegister}
             required
@@ -359,7 +358,7 @@ const KrowdyOneTap = ({
           <div className={classes.margintop}>
             <GoogleButton />
           </div>
-        ) : loginkey === 'microsoft' && referrer !== 'portales'  ? (
+        ) : loginkey === 'microsoft' ? (
           <div className={classes.margintop}>
             <MicrosoftButton />
           </div>
