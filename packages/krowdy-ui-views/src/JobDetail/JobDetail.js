@@ -244,11 +244,11 @@ export const styles = theme => ({
     marginLeft: theme.spacing(1)
   },
   titleJob: {
-    '&:first-letter': {
-      textTransform: 'uppercase'
-    },
+    // '&:first-letter': {
+    //   textTransform: 'uppercase'
+    // },
     fontSize                      : '2.5rem',
-    textTransform                 : 'lowercase',
+    // textTransform                 : 'lowercase',
     [theme.breakpoints.down('xs')]: {
       fontSize: 44
     },
