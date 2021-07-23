@@ -58,16 +58,17 @@ const MicrosoftButton = () => {
   }, [ validateSocialNetwork, verifying ])
 
   return (
-    <MicrosoftLogin
-      authCallback={handleResponseMicrosoft}
-      clientId={clientId}
-      // forceRedirectStrategy
-      redirectUri={redirectUri}>
-      <button className={classes.btnSocialMicrosoft}>
-        <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
-        <Typography variant='body2'>Ingresa con Microsoft</Typography>
-      </button>
-    </MicrosoftLogin>
+    clientId ?
+      <MicrosoftLogin
+        authCallback={handleResponseMicrosoft}
+        clientId={clientId}
+        // forceRedirectStrategy
+        redirectUri={redirectUri}>
+        <button className={classes.btnSocialMicrosoft}>
+          <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
+          <Typography variant='body2'>Ingresa con Microsoft</Typography>
+        </button>
+      </MicrosoftLogin> : null
   )
 }
 
