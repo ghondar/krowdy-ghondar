@@ -25,7 +25,8 @@ const AuthProvider = ({
   clientSecret,
   loginWith = 'only-email',
   clientId,
-  withGoogle
+  withGoogle,
+  isBolsa
 }) => {
   const authClient  = useRef()
   const iframeRef = useRef()
@@ -432,6 +433,7 @@ const AuthProvider = ({
         ...stateContext,
         facebookCredentials  : facebook,
         googleCredentials    : google,
+        isBolsa,
         linkedinCredentials  : linkedin,
         loginByCode          : _handleLoginByCode,
         loginByPassword      : _handleLoginByPassword,
@@ -492,6 +494,7 @@ AuthProvider.propTypes = {
   children    : PropTypes.any,
   clientId    : PropTypes.string,
   clientSecret: PropTypes.string,
+  isBolsa     : PropTypes.bool,
   loginWith   : PropTypes.oneOf([ 'only-email', 'only-phone', 'phone-and-email' ]),
   referrer    : PropTypes.string,
   social      : PropTypes.shape({
