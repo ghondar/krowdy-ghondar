@@ -11,7 +11,7 @@ const Footer = ({
   typeView
 }) => {
   const classes = useStyles()
-  const { allowAds, onAllowAds, referrer } = useAuth()
+  const { allowAds, onAllowAds, referrer, isBolsa } = useAuth()
 
   return (
     <div className={classes.containerFooter}>
@@ -56,7 +56,7 @@ const Footer = ({
         </Typography> : null }
 
       {
-        referrer === 'portales' ?
+        referrer === 'portales' || isBolsa ?
           <img
             alt='powered-krowdy'
             className={classes.footerImage}
@@ -68,12 +68,16 @@ const Footer = ({
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   containerFooter: {
-    alignItems    : 'center',
-    color         : palette.grey[600],
-    display       : 'flex',
-    flexDirection : 'column',
-    fontSize      : 12,
-    justifyContent: 'center'
+    alignItems   : 'center',
+    bottom       : spacing(5),
+    color        : palette.grey[600],
+    display      : 'flex',
+    flexDirection: 'column',
+    fontSize     : 12,
+
+    justifyContent: 'center',
+    position      : 'absolute',
+    width         : 380
   },
   content: {
     fontSize : 12,

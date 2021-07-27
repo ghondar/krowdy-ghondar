@@ -67,7 +67,7 @@ const LoginSinglePage = () => {
   }, [ _handleChangeView ])
 
   return (
-    <div>
+    <div className={classes.mainContainer}>
       {
         (typeView !== 'main' && prevViews.length)? (
           <Button
@@ -159,6 +159,9 @@ const useStyles = makeStyles(({ spacing }) => ({
     display       : 'flex',
     flexDirection : 'column',
     justifyContent: 'center'
+  },
+  mainContainer: {
+    width: 380
   },
   titleCenter: {
     marginTop: spacing(1.5),
