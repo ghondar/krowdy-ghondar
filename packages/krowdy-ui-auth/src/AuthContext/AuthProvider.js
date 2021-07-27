@@ -287,6 +287,10 @@ const AuthProvider = ({
       if(!error) {
         sendMessageToLoginApp('logged', { accessToken, iduser: userId, refreshToken })
         updateStorage(storage, { accessToken, iduser: userId, refreshToken })
+
+        if(network === 'microsoft')
+          window.sessionStorage.clear()
+
         setState(prev => ({
           ...prev,
           accessToken,
