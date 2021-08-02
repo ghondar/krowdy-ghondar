@@ -1,5 +1,5 @@
 import React from 'react'
-import { Paper, makeStyles, IconButton, Button } from '@krowdy-ui/core'
+import { Paper, makeStyles, IconButton, Button, Typography } from '@krowdy-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
 const PasswordNotify = ({
@@ -17,21 +17,23 @@ const PasswordNotify = ({
         variant='outlined'>
         <CloseIcon fontSize='small' />
       </IconButton>
-        ¿Te gustaría crear una contraseña para acceder con esta cuenta?
-      <Button color='primary' onClick={onCreate}>Crear</Button>
+      <Typography variant='body2'>¿Te gustaría crear una contraseña para ingresar con esta cuenta?</Typography>
+      <Button
+        className={classes.button}
+        color='primary'
+        onClick={onCreate}
+        variant='contained'>Crear una contraseña</Button>
     </Paper>
   )
 }
 const useStyles = makeStyles(({ palette, spacing, zIndex, breakpoints })=>({
+  button: {
+    marginTop: spacing(1.25)
+  },
   closeButton: {
-    '&:hover': {
-      background: palette.grey[800]
-    },
-    background: palette.grey[800],
-    color     : palette.common.white,
-    position  : 'absolute',
-    right     : -12,
-    top       : -12
+    position: 'absolute',
+    right   : 5,
+    top     : 5
   },
   paper: {
     [breakpoints.up('md')]: {
@@ -39,9 +41,7 @@ const useStyles = makeStyles(({ palette, spacing, zIndex, breakpoints })=>({
       right   : 54,
       top     : 90
     },
-    background: palette.grey[800],
-    color     : palette.common.white,
-    display   : 'flex',
+    background: palette.common.white,
     maxWidth  : 324,
     padding   : spacing(1.5, 2),
     position  : 'fixed',
