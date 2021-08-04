@@ -354,25 +354,27 @@ const AuthProvider = ({
 
   const _handleLogOut = useCallback(() => {
     const deleteSession = () => {
+      window.google && window.google.accounts.id.disableAutoSelect()
+
       clearStorage(storage, [ 'accessToken', 'iduser', 'refreshToken' ])
       sessionStorage.clear()
     }
 
     const { accessToken, refreshToken } = state
 
-    if(accessToken || refreshToken)
-    {authClient.current.logout({ accessToken, refreshToken })
-      .then((res) => {
-        const { success } = res
-        if(!success) return console.error('Error when user closing session')
-        deleteSession()
-        sendMessageToLoginApp('unlogged')
-      })
-      .catch(() => {
-        deleteSession()
-        sendMessageToLoginApp('unlogged')
-      })}
-    else {
+    if(accessToken || refreshToken) {
+      authClient.current.logout({ accessToken, refreshToken })
+        .then((res) => {
+          const { success } = res
+          if(!success) return console.error('Error when user closing session')
+          deleteSession()
+          sendMessageToLoginApp('unlogged')
+        })
+        .catch(() => {
+          deleteSession()
+          sendMessageToLoginApp('unlogged')
+        })
+    } else {
       deleteSession()
       sendMessageToLoginApp('unlogged')
     }
@@ -432,6 +434,13 @@ const AuthProvider = ({
     }))
   }, [])
 
+  const _handleSetLoadingSignIn = useCallback((value)=>{
+    setState(prev=>({
+      ...prev,
+      loadingSignIn: value
+    }))
+  }, [])
+
   return (
     <LoginContext.Provider
       value={{
@@ -457,6 +466,7 @@ const AuthProvider = ({
         onUpdateState        : _handleUpdateState,
         referrer,
         sendVerifyOrCode     : _handleSendVerifyCode,
+        setLoadingSignIn     : _handleSetLoadingSignIn,
         updateAccount        : _handleUpdateAccount,
         validateSocialNetwork: _handleValidateSocial,
         verifyAccount        : _handleVerifyAccount

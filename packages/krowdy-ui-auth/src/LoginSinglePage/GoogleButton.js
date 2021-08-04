@@ -6,7 +6,7 @@ import { useAuth } from '../utils'
 
 const GoogleButton = () => {
   const classes = useStyles()
-  const { googleCredentials = {}, validateSocialNetwork } = useAuth()
+  const { googleCredentials = {}, validateSocialNetwork, setLoadingSignIn } = useAuth()
 
   const _handleSuccess = useCallback((response)=>{
     if(response && response.tokenId) {
@@ -16,13 +16,24 @@ const GoogleButton = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork, googleCredentials ])
 
+  const _handleFailure = useCallback(()=>{
+    setLoadingSignIn(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const _handleRequest = useCallback(() => {
+    setLoadingSignIn(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     googleCredentials && googleCredentials.clientId ?
       <GoogleLogin
         clientId={googleCredentials.clientId}
         cookiePolicy='single_host_origin'
+        onFailure={_handleFailure}
+        onRequest={_handleRequest}
         onSuccess={_handleSuccess}
-        // onFailure={}
         redirectUri={googleCredentials.redirectUri}
         render={({ onClick }) => (
           <Button
