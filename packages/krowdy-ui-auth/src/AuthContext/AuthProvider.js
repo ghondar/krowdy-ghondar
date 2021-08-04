@@ -275,6 +275,7 @@ const AuthProvider = ({
   const _handleValidateSocial = useCallback(async (network, response) => {
     const { tokenId } = response
     if(authClient && authClient.current) {
+      setState(prev => ({ ...prev, loadingSignIn: true }))
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
         allowAds   : state.allowAds ? 1 : 0,
         clientId,
@@ -294,9 +295,10 @@ const AuthProvider = ({
         setState(prev => ({
           ...prev,
           accessToken,
-          flowFinished: true,
+          flowFinished : true,
+          loadingSignIn: false,
           refreshToken,
-          successLogin: true,
+          successLogin : true,
           userId
         }))
       }
@@ -352,25 +354,27 @@ const AuthProvider = ({
 
   const _handleLogOut = useCallback(() => {
     const deleteSession = () => {
+      window.google && window.google.accounts.id.disableAutoSelect()
+
       clearStorage(storage, [ 'accessToken', 'iduser', 'refreshToken' ])
       sessionStorage.clear()
     }
 
     const { accessToken, refreshToken } = state
 
-    if(accessToken || refreshToken)
-    {authClient.current.logout({ accessToken, refreshToken })
-      .then((res) => {
-        const { success } = res
-        if(!success) return console.error('Error when user closing session')
-        deleteSession()
-        sendMessageToLoginApp('unlogged')
-      })
-      .catch(() => {
-        deleteSession()
-        sendMessageToLoginApp('unlogged')
-      })}
-    else {
+    if(accessToken || refreshToken) {
+      authClient.current.logout({ accessToken, refreshToken })
+        .then((res) => {
+          const { success } = res
+          if(!success) return console.error('Error when user closing session')
+          deleteSession()
+          sendMessageToLoginApp('unlogged')
+        })
+        .catch(() => {
+          deleteSession()
+          sendMessageToLoginApp('unlogged')
+        })
+    } else {
       deleteSession()
       sendMessageToLoginApp('unlogged')
     }
@@ -430,6 +434,13 @@ const AuthProvider = ({
     }))
   }, [])
 
+  const _handleSetLoadingSignIn = useCallback((value)=>{
+    setState(prev=>({
+      ...prev,
+      loadingSignIn: value
+    }))
+  }, [])
+
   return (
     <LoginContext.Provider
       value={{
@@ -455,6 +466,7 @@ const AuthProvider = ({
         onUpdateState        : _handleUpdateState,
         referrer,
         sendVerifyOrCode     : _handleSendVerifyCode,
+        setLoadingSignIn     : _handleSetLoadingSignIn,
         updateAccount        : _handleUpdateAccount,
         validateSocialNetwork: _handleValidateSocial,
         verifyAccount        : _handleVerifyAccount

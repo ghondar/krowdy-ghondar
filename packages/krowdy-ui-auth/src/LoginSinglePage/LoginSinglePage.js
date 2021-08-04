@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Button, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
+import { Button, CircularProgress, makeStyles, Typography, useTheme } from '@krowdy-ui/core'
 import { ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons'
 import GoogleButton from './GoogleButton'
 import MicrosoftButton from './MicrosoftButton'
@@ -44,7 +44,7 @@ const LoginSinglePage = () => {
   const [ prevViews, setPrevViews ] = useState([])
   const [ currentUser, setCurrentUser ] = useState('')
 
-  const { loginWith, typeView, onChangeView } = useAuth()
+  const { loginWith, typeView, onChangeView, loadingSignIn } = useAuth()
 
   const _handleChangeView = useCallback((view) => {
     setPrevViews([ ...prevViews, typeView ])
@@ -106,20 +106,24 @@ const LoginSinglePage = () => {
       <div className={classes.bodyContainer}>
         {
           typeView === 'main' ? (
-            <>
-              <GoogleButton />
-              <LinkedInButton />
-              <MicrosoftButton />
-              <FacebookButton />
-              <Button
-                className={classes.buttonKrowdy}
-                color='primary'
-                fullWidth
-                onClick={_handleChangeLogin}
-                variant='outlined' >
-                {loginButtonLabels[loginWith]}
-              </Button>
-            </>
+            loadingSignIn ? (
+              <CircularProgress className={classes.loading} disableShrink size={24} />
+            ) : (
+              <>
+                <GoogleButton />
+                <LinkedInButton />
+                <MicrosoftButton />
+                <FacebookButton />
+                <Button
+                  className={classes.buttonKrowdy}
+                  color='primary'
+                  fullWidth
+                  onClick={_handleChangeLogin}
+                  variant='outlined' >
+                  {loginButtonLabels[loginWith]}
+                </Button>
+              </>
+            )
           ) : (
             <KrowdyOneTap
               currentUser={currentUser}
@@ -159,6 +163,10 @@ const useStyles = makeStyles(({ spacing }) => ({
     display       : 'flex',
     flexDirection : 'column',
     justifyContent: 'center'
+  },
+  loading: {
+    display: 'block',
+    margin : '40px auto'
   },
   mainContainer: {
     width: 380

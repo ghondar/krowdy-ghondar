@@ -36,7 +36,8 @@ const MicrosoftButton = () => {
   const classes = useStyles()
   const {
     microsoftCredentials: { clientId, redirectUri } = {},
-    validateSocialNetwork
+    validateSocialNetwork,
+    setLoadingSignIn
   } = useAuth()
 
   const [ verifying, setVerifying ] = useState(false)
@@ -44,6 +45,7 @@ const MicrosoftButton = () => {
   const handleResponseMicrosoft = useCallback((err, response, msal) => {
     if(err) {
       setVerifying(false)
+      setLoadingSignIn(false)
       console.log(err)
 
       return
@@ -55,20 +57,27 @@ const MicrosoftButton = () => {
       setVerifying(true)
       validateSocialNetwork('microsoft', { tokenId: accessToken })
     }
-  }, [ validateSocialNetwork, verifying ])
+  }, [ validateSocialNetwork, verifying, setLoadingSignIn ])
+
+  const _handleRequest = useCallback(() => {
+    setLoadingSignIn(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     clientId ?
-      <MicrosoftLogin
-        authCallback={handleResponseMicrosoft}
-        clientId={clientId}
-        // forceRedirectStrategy
-        redirectUri={redirectUri}>
-        <button className={classes.btnSocialMicrosoft}>
-          <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
-          <Typography variant='body2'>Ingresa con Microsoft</Typography>
-        </button>
-      </MicrosoftLogin> : null
+      <div onClick={_handleRequest}>
+        <MicrosoftLogin
+          authCallback={handleResponseMicrosoft}
+          clientId={clientId}
+          // forceRedirectStrategy
+          redirectUri={redirectUri}>
+          <button className={classes.btnSocialMicrosoft}>
+            <img alt='microsoftSocial' src={IMAGES_SOCIAL.microsoft} />
+            <Typography variant='body2'>Ingresa con Microsoft</Typography>
+          </button>
+        </MicrosoftLogin>
+      </div>: null
   )
 }
 
