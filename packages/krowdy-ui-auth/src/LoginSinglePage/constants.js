@@ -1,4 +1,3 @@
-
 export const IMAGES_SOCIAL = {
   facebook : 'https://cdn.krowdy.com/auth/iconFb.svg',
   google   : 'https://cdn.krowdy.com/auth/iconGoogle.svg',
@@ -9,7 +8,7 @@ export const IMAGES_SOCIAL = {
 
 export const METHODS_SESSION = {
   facebook : 'Facebook Auth',
-  google   : ' Google Auth',
+  google   : 'Google Auth',
   linkedin : 'Linkedin Auth',
   microsoft: 'Microsoft Auth',
   register : 'Formulario'
