@@ -295,12 +295,13 @@ const AuthProvider = ({
         setState(prev => ({
           ...prev,
           accessToken,
-          flowFinished : true,
-          loadingSignIn: false,
+          flowFinished: true,
           refreshToken,
-          successLogin : true,
+          successLogin: true,
           userId
         }))
+      } else {
+        setState(prev => ({ ...prev, loadingSignIn: false }))
       }
     }
   }, [ clientId, clientSecret, referrer, sendMessageToLoginApp, state.allowAds, state.keepSession, storage ])
