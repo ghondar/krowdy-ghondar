@@ -6,3 +6,11 @@ export const IMAGES_SOCIAL = {
   microsoft: 'https://cdn.krowdy.com/auth/iconMicrosoft.svg',
   twitter  : 'https://cdn.krowdy.com/auth/twitter.png'
 }
+
+export const METHODS_SESSION = {
+  facebook : 'Facebook Auth',
+  google   : ' Google Auth',
+  linkedin : 'Linkedin Auth',
+  microsoft: 'Microsoft Auth',
+  register : 'Formulario'
+}

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import GoogleLogin from 'react-google-login'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
-import { IMAGES_SOCIAL } from './constants'
+import { IMAGES_SOCIAL, METHODS_SESSION } from './constants'
 import { useAuth } from '../utils'
 
 const GoogleButton = () => {
@@ -11,7 +11,7 @@ const GoogleButton = () => {
   const _handleSuccess = useCallback((response)=>{
     if(response && response.tokenId) {
       const { tokenId } = response
-      validateSocialNetwork('google', { tokenId } )
+      validateSocialNetwork('google', { method: METHODS_SESSION['google'], tokenId } )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork, googleCredentials ])

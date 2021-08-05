@@ -9,6 +9,7 @@ export const initialState = {
   keepSession        : true,
   loading            : false,
   loadingAuth        : true,
+  method             : 'Formulario',
   oneTapGoogleDisplay: false,
   openBackdrop       : false,
   openPasswordNotify : false,

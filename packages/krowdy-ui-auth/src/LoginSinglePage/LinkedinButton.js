@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { LinkedIn } from 'react-linkedin-login-oauth2'
 import { makeStyles, Button, Typography } from '@krowdy-ui/core'
-import { IMAGES_SOCIAL } from './constants'
+import { IMAGES_SOCIAL, METHODS_SESSION } from './constants'
 import { useAuth } from '../utils'
 
 const Linkedin = () => {
@@ -11,7 +11,7 @@ const Linkedin = () => {
   const _handleSuccess = useCallback((response)=>{
     if(response && response.code) {
       const { code } = response
-      validateSocialNetwork('linkedin', { tokenId: code } )
+      validateSocialNetwork('linkedin', { method: METHODS_SESSION['linkedin'],  tokenId: code } )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork, linkedinCredentials ])

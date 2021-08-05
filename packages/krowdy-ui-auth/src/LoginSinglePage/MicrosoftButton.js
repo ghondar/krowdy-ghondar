@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import MicrosoftLogin from 'react-microsoft-login'
 import { makeStyles, Typography } from '@krowdy-ui/core'
-import { IMAGES_SOCIAL } from './constants'
+import { IMAGES_SOCIAL, METHODS_SESSION } from './constants'
 import { useAuth } from '../utils'
 
 const useStyles = makeStyles(({ spacing, shape, palette }) => ({
@@ -55,7 +55,7 @@ const MicrosoftButton = () => {
       const { accessToken } = response
 
       setVerifying(true)
-      validateSocialNetwork('microsoft', { tokenId: accessToken })
+      validateSocialNetwork('microsoft', { method: METHODS_SESSION['microsoft'],  tokenId: accessToken })
     }
   }, [ validateSocialNetwork, verifying, setLoadingSignIn ])
 
