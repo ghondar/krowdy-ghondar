@@ -273,9 +273,9 @@ const AuthProvider = ({
   , [ authClient, authClient.current, state.accessToken ])
 
   const _handleValidateSocial = useCallback(async (network, response) => {
-    const { tokenId } = response
+    const { tokenId, method } = response
     if(authClient && authClient.current) {
-      setState(prev => ({ ...prev, loadingSignIn: true }))
+      setState(prev => ({ ...prev, loadingSignIn: true, method }))
       const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
         allowAds   : state.allowAds ? 1 : 0,
         clientId,
@@ -295,12 +295,13 @@ const AuthProvider = ({
         setState(prev => ({
           ...prev,
           accessToken,
-          flowFinished : true,
-          loadingSignIn: false,
+          flowFinished: true,
           refreshToken,
-          successLogin : true,
+          successLogin: true,
           userId
         }))
+      } else {
+        setState(prev => ({ ...prev, loadingSignIn: false }))
       }
     }
   }, [ clientId, clientSecret, referrer, sendMessageToLoginApp, state.allowAds, state.keepSession, storage ])

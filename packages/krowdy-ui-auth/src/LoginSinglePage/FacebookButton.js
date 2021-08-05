@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import FacebookLogin from 'react-facebook-login'
-import { IMAGES_SOCIAL } from './constants'
+import { IMAGES_SOCIAL, METHODS_SESSION } from './constants'
 import { makeStyles } from '@krowdy-ui/core'
 import { useAuth } from '../utils'
 
@@ -12,7 +12,7 @@ const FacebookButton = () => {
   const _handleSuccess = useCallback((response)=>{
     if(response && response.accessToken) {
       const { accessToken : tokenId } = response
-      validateSocialNetwork('facebook', { tokenId } )
+      validateSocialNetwork('facebook', { method: METHODS_SESSION['facebook'], tokenId } )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ validateSocialNetwork ])
