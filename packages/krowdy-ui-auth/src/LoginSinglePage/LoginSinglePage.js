@@ -9,10 +9,10 @@ import Footer from './Footer'
 import { useAuth } from '../utils'
 import FacebookButton from './FacebookButton'
 
-const getTitleByView = (type, text) => {
+const getTitleByView = (type, text, customMainText) => {
   switch (type) {
     case 'main':
-      return '¡Te damos la bienvenida!'
+      return customMainText || '¡Te damos la bienvenida!'
     case 'login':
       return 'Ingresa tu correo electrónico'
     case 'password':
@@ -38,7 +38,7 @@ const loginButtonLabels = {
   'phone-and-email': 'Ingresa con otro correo o celular'
 }
 
-const LoginSinglePage = () => {
+const LoginSinglePage = ({ customMainText }) => {
   const classes = useStyles()
   const { template:{ header:{ logo } = {} } = {} } = useTheme()
   const [ prevViews, setPrevViews ] = useState([])
@@ -83,7 +83,7 @@ const LoginSinglePage = () => {
           <img alt='abeja-img' src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
         </div>
         <Typography className={classes.titleCenter} variant='h5'>
-          {getTitleByView(typeView, currentUser)}
+          {getTitleByView(typeView, currentUser, customMainText)}
         </Typography>
       </div>
       {
