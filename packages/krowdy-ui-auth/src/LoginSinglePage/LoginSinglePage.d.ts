@@ -1,7 +1,8 @@
 import React from 'react'
 
 export type LoginSinglePageProps = {
-  children?: unknown
+  children?: unknown,
+  customMainText?: string
 };
 
 declare var LoginSinglePage: React.ComponentType<LoginSinglePageProps>;
