@@ -68,16 +68,12 @@ const Footer = ({
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   containerFooter: {
-    alignItems   : 'center',
-    bottom       : spacing(5),
-    color        : palette.grey[600],
-    display      : 'flex',
-    flexDirection: 'column',
-    fontSize     : 12,
-
-    justifyContent: 'center',
-    position      : 'absolute',
-    width         : 380
+    alignItems    : 'center',
+    color         : palette.grey[600],
+    display       : 'flex',
+    flexDirection : 'column',
+    fontSize      : 12,
+    justifyContent: 'center'
   },
   content: {
     fontSize : 12,
