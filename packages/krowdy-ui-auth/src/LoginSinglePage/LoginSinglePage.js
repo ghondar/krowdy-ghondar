@@ -167,8 +167,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     margin : '40px auto'
   },
   logo: {
-    maxHeight: 64,
-    maxWidth : 150
+    maxHeight: 64
   },
   mainContainer: {
     width: 380
