@@ -80,7 +80,7 @@ const LoginSinglePage = ({ customMainText }) => {
       }
       <div className={classes.imageContainer}>
         <div className={classes.headerImage}>
-          <img alt='abeja-img' src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
+          <img alt='abeja-img' className={classes.logo} src={logo ? logo.source : '//cdn.krowdy.com/media/images/KrowdyLogo2.svg'} />
         </div>
         <Typography className={classes.titleCenter} variant='h5'>
           {getTitleByView(typeView, currentUser, customMainText)}
@@ -154,9 +154,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     alignItems    : 'center',
     display       : 'flex',
     justifyContent: 'center',
-    margin        : spacing(2.5, 0),
-    maxHeight     : 64,
-    maxWidth      : 150
+    margin        : spacing(2.5, 0)
   },
   imageContainer: {
     alignItems    : 'center',
@@ -168,13 +166,16 @@ const useStyles = makeStyles(({ spacing }) => ({
     display: 'block',
     margin : '40px auto'
   },
+  logo: {
+    maxHeight: 64,
+    maxWidth : 150
+  },
   mainContainer: {
     width: 380
   },
   titleCenter: {
     marginTop: spacing(1.5),
     textAlign: 'center'
-
   }
 }), { name: 'LoginSinglePage' })
 
