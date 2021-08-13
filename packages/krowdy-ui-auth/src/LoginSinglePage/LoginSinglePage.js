@@ -170,7 +170,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     maxHeight: 64
   },
   mainContainer: {
-    width: 380
+    width: '100%'
   },
   titleCenter: {
     marginTop: spacing(1.5),
