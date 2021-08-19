@@ -276,7 +276,7 @@ const AuthProvider = ({
     const { tokenId, method } = response
     if(authClient && authClient.current) {
       setState(prev => ({ ...prev, loadingSignIn: true, method }))
-      const { error, refreshToken, accessToken, userId } = await authClient.current.loginSocialNetwork({
+      const { error, refreshToken, accessToken, userId, isNew } = await authClient.current.loginSocialNetwork({
         allowAds   : state.allowAds ? 1 : 0,
         clientId,
         clientSecret,
@@ -296,6 +296,7 @@ const AuthProvider = ({
           ...prev,
           accessToken,
           flowFinished: true,
+          isNew,
           refreshToken,
           successLogin: true,
           userId
