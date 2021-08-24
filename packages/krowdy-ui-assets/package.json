@@ -40,6 +40,6 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.12.1"
+    "@krowdy-ui/core": "0.0.90"
   }
 }
