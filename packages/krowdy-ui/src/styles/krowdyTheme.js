@@ -1,4 +1,4 @@
-import { bluePrimary, blueSecondary, krowdy, grey, amber, green, alt } from '../colors'
+import { bluePrimary, blueSecondary, krowdy, grey, amber, green, alt, custom } from '../colors'
 import shadows from './shadows'
 
 export default {
@@ -57,6 +57,7 @@ export default {
   palette: {
     alt,
     amber,
+    custom,
     green,
     grey,
     krowdy,
