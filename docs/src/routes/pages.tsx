@@ -311,6 +311,15 @@ const pages: Array<Page> = [
       // V
     ],
     title: 'Views'
+  },
+  {
+    routes: [
+      {
+        path : '/assets/svg',
+        title: 'Svg'
+      }
+    ],
+    title: 'Assets'
   }
 ]
 

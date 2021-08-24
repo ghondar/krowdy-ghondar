@@ -7,6 +7,7 @@ export namespace PropTypes {
 }
 
 export interface Color {
+  F?: string;
   50: string;
   100: string;
   200: string;

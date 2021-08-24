@@ -6,6 +6,7 @@ const paths = require('react-scripts/config/paths')
 const aliases = {}
 
 const _moduleAliases = {
+  assets    : './assets',
   components: './components',
   containers: './containers'
 }
@@ -32,6 +33,7 @@ module.exports = override(
   },
   addWebpackAlias({
     ...aliases,
+    '@krowdy-ui/assets': path.resolve(__dirname, '../packages/krowdy-ui-assets/src'),
     '@krowdy-ui/auth'  : path.resolve(__dirname, '../packages/krowdy-ui-auth/src'),
     '@krowdy-ui/core'  : path.resolve(__dirname, '../packages/krowdy-ui/src'),
     '@krowdy-ui/icons' : path.resolve(__dirname, '../packages/krowdy-ui-icons/src'),
@@ -43,6 +45,7 @@ module.exports = override(
     'babel-plugin-module-resolver', {
       // "root": ["./src"],
       alias: {
+        '@krowdy-ui/assets': path.resolve(__dirname, '../packages/krowdy-ui-assets/src'),
         '@krowdy-ui/auth'  : path.resolve(__dirname, '../packages/krowdy-ui-auth/src'),
         '@krowdy-ui/core'  : path.resolve(__dirname, '../packages/krowdy-ui/src'),
         '@krowdy-ui/icons' : path.resolve(__dirname, '../packages/krowdy-ui-icons/src'),
