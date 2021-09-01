@@ -1,6 +1,6 @@
 {
   "name": "@krowdy-ui/assets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "author": "Krowdy Team",
   "description": "React components that implement Google's Material Design.",
@@ -40,6 +40,6 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
-    "@krowdy-ui/core": "0.0.90"
+    "@krowdy-ui/core": "0.0.91"
   }
 }
