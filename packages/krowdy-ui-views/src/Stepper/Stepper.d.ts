@@ -1,7 +1,6 @@
 interface Step {
   _id: string;
   label: string;
-  value: string | number;
 }
 
 export type StepperProps = {
