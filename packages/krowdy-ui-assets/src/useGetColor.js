@@ -16,7 +16,11 @@ const useGetColor = ({ color }) => {
         break
       }
       case 'custom': {
-        colorCustom = theme.palette.custom.main
+        if(theme.palette.custom && theme.palette.custom.main) {
+          colorCustom = theme.palette.custom.main
+          break
+        }
+        if(!color) colorCustom = theme.palette.primary.main
         break
       }
       default: {
@@ -26,7 +30,7 @@ const useGetColor = ({ color }) => {
     }
 
     return colorCustom
-  }, [ color, theme.palette.primary.main, theme.palette.secondary.main, theme.palette.custom.main ])
+  }, [ color, theme.palette ])
 
   return colorCustom
 }
