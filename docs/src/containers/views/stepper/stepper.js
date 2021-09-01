@@ -51,7 +51,7 @@ export default function () {
         activeIndex={step}
         clickeable
         onChange={_handleChange}
-        orientation='horizontal'
+        orientation='vertical'
         steps={steps} />
     </Grid>
   )

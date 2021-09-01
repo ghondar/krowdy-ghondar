@@ -27,7 +27,7 @@ const Step = ({
   totalSteps,
   clickeable
 }) => {
-  const classes =useStyles({ index, orientation, totalSteps })
+  const classes =useStyles({ active, index, orientation, totalSteps })
 
   return (
     <Component
@@ -49,6 +49,7 @@ const Step = ({
               className={classes.doneStep}
               color='primary' /> ): (
             <Typography
+              className={classes.indexText}
               color={active ? 'primary' : 'inherit'}
               variant='caption'>
               {index + 1}
@@ -139,24 +140,23 @@ const useStyles = makeStyles(({ palette, spacing })=>({
     alignItems    : 'center',
     borderRadius  : '50%',
     display       : 'flex',
-    height        : 21,
+    height        : 24,
     justifyContent: 'center',
     // position      : 'relative',
-    width         : 21
+    width         : 24
   },
   conector: {
     background: palette.primary.main,
     height    : ({ orientation }) => orientation ==='vertical' ? 'calc(100% - 28px)' : 2,
-    left      : ({ orientation }) => orientation ==='horizontal' ? 'calc(50% + 13px)' : 10,
+    left      : ({ orientation }) => orientation ==='horizontal' ? 'calc(50% + 14px)' : 12,
     position  : 'absolute',
-    top       : ({ orientation }) => orientation ==='vertical' ? 'calc(24px)'  : 10,
-    width     : ({ orientation }) => orientation ==='horizontal' ? 'calc(100% - 26px)' : 2
+    top       : ({ orientation }) => orientation ==='vertical' ? 'calc(26px)'  : 12,
+    width     : ({ orientation }) => orientation ==='horizontal' ? 'calc(100% - 28px)' : 2
   },
   disabled: {
     border: `3px solid ${palette.grey[400]}`,
     color : palette.grey[400]
   },
-
   disabledLine: {
     background: palette.grey[400]
     // height    : ({ orientation, totalSteps }) => orientation ==='vertical' ? `calc(100% + (100% / ${totalSteps - 1}) + 2px)` : 2,
@@ -164,6 +164,18 @@ const useStyles = makeStyles(({ palette, spacing })=>({
   },
   doneStep: {
     fontSize: 24
+  },
+  indexText: {
+    alignItems    : 'center',
+    // background    : ({ active }) => active ? palette.primary.main: '',
+    background    : ({ active }) => active ? `linear-gradient(to top, ${palette.primary[100]} 0%, ${palette.primary[100]} 50%, white 40%)`: '',
+    borderRadius  : '50%',
+    display       : 'flex',
+    fontWeight    : 500,
+    height        : 18,
+    justifyContent: 'center',
+    // opacity       : ({ active }) => active ? '20%': null,
+    width         : 18
   },
   selected: {
     border: `3px solid ${palette.primary.main}`
@@ -173,7 +185,7 @@ const useStyles = makeStyles(({ palette, spacing })=>({
     display      : 'flex',
     flex         : 1,
     flexDirection: ({ orientation }) => orientation ==='vertical' ? 'row': 'column',
-    height       : ({ orientation, totalSteps }) => orientation ==='vertical' ? `calc(100% / ${totalSteps - 1} - 26px)` : 2,
+    height       : ({ orientation, totalSteps }) => orientation ==='vertical' ? `calc(100% / ${totalSteps - 1} - 28px)` : 2,
     justifyItems : 'center',
     paddingBottom: ({ orientation, totalSteps, index }) => orientation ==='vertical' && index < totalSteps-1 ? `calc(100% / ${totalSteps - 1})`: 0,
     position     : 'relative'
