@@ -6,8 +6,5 @@
 
 | Name      | Type    | Default | Description                                   |
 | :-------- | :------ | :-----: | :-------------------------------------------- |
-| src       | string  |         | en el caso de que sea imagen el icon          |
-| subtitle  | string  |         | subtitulo                                     |
-| title     | string  |         | titulo                                        |
-| width     | number  |         | ancho del select                              |
+
 

@@ -44,9 +44,15 @@ const Step = ({
             [classes.disabled]: disabled && !isCompleted
           })}>
         {
-          completed || isCompleted ? <CheckCircleRoundedIcon
-            className={classes.doneStep}
-            color='primary' /> : <Typography variant='caption'>{index + 1}</Typography>
+          completed || isCompleted ?(
+            <CheckCircleRoundedIcon
+              className={classes.doneStep}
+              color='primary' /> ): (
+            <Typography
+              color={active ? 'primary' : 'inherit'}
+              variant='caption'>
+              {index + 1}
+            </Typography>)
         }
       </div>
       <Typography
