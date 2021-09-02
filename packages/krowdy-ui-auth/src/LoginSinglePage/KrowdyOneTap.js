@@ -220,6 +220,7 @@ const KrowdyOneTap = ({
         [ 'password', 'verify', 'recovery', 'newPassword' ].includes(typeView) ? (
           <TextField
             autoFocus
+            className={clsx(classes.labelOutlined)}
             error={isErrorLogin}
             FormHelperTextProps={{
               classes: {
@@ -228,11 +229,11 @@ const KrowdyOneTap = ({
             }}
             fullWidth
             helperText={isErrorLogin || [ 'recovery', 'newPassword' ].includes(typeView) ? errorMessages[typeView] : null}
-            InputLabelProps={{
-              classes: {
-                outlined: classes.outlinedLabel
-              }
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     outlined: classes.outlinedLabel
+            //   }
+            // }}
             InputProps={{
               className: classes.inputStyle,
               classes  : {
@@ -264,13 +265,13 @@ const KrowdyOneTap = ({
         ) : typeView === 'login' ? (
           <TextField
             autoFocus
-            className={classes.fieldEmail}
+            className={clsx(classes.fieldEmail,  classes.labelOutlined)}
             fullWidth
-            InputLabelProps={{
-              classes: {
-                root: classes.labelOutlined
-              }
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     root: classes.labelOutlined
+            //   }
+            // }}
             InputProps={{
               classes: {
                 input: classes.emailInput,
@@ -291,12 +292,13 @@ const KrowdyOneTap = ({
         typeView === 'register' ? (
           <> <TextField
             autoFocus
+            className={clsx(classes.labelOutlined)}
             fullWidth
-            InputLabelProps={{
-              classes: {
-                root: classes.labelOutlined
-              }
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     root: classes.labelOutlined
+            //   }
+            // }}
             InputProps={{
               classes: {
                 input: classes.emailInput,
@@ -310,13 +312,13 @@ const KrowdyOneTap = ({
             value={register.firstName || ''}
             variant='outlined' />
           <TextField
-            className={classes.fieldEmail}
+            className={clsx(classes.fieldEmail,  classes.labelOutlined)}
             fullWidth
-            InputLabelProps={{
-              classes: {
-                root: classes.labelOutlined
-              }
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     root: classes.labelOutlined
+            //   }
+            // }}
             InputProps={{
               classes: {
                 input: classes.emailInput,
@@ -330,13 +332,13 @@ const KrowdyOneTap = ({
             value={register.lastName || ''}
             variant='outlined' />
           <TextField
-            className={classes.fieldEmail}
+            className={clsx(classes.fieldEmail,  classes.labelOutlined)}
             fullWidth
-            InputLabelProps={{
-              classes: {
-                root: classes.labelOutlined
-              }
-            }}
+            // InputLabelProps={{
+            //   classes: {
+            //     root: classes.labelOutlined
+            //   }
+            // }}
             InputProps={{
               classes: {
                 input: classes.emailInput,
@@ -471,7 +473,12 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     margin: spacing(2, 0, 0, 0)
   },
   labelOutlined: {
-    transform: 'translate(14px, 14px)'
+    '& .MuiInputLabel-outlined': {
+      transform: 'translate(8px, 13px) scale(1)'
+    },
+    '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
+      transform: 'translate(12px, -5px) scale(0.70)'
+    }
   },
   margintop: {
     marginTop: spacing(4)
