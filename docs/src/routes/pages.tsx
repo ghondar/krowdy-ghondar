@@ -271,6 +271,10 @@ const pages: Array<Page> = [
         title: 'SelectInfo'
       },
       {
+        path : '/views/stepper',
+        title: 'Stepper'
+      },
+      {
         path : '/views/superfilters',
         title: 'SuperFilters'
       },

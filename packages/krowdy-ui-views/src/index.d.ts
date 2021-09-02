@@ -128,3 +128,6 @@ export * from './RangeSchedule'
 
 export { default as BackgroundAlert } from './BackgroundAlert'
 export * from './BackgroundAlert'
+
+export { default as Stepper } from './Stepper'
+export * from './Stepper'
