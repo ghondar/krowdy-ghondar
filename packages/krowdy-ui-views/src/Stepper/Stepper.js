@@ -203,7 +203,7 @@ const useStyles = makeStyles((theme)=>({
   },
   stepLabel: {
     color     : theme.palette.grey[700],
-    marginLeft: theme.spacing(1.5)
+    marginLeft: ({ orientation }) => orientation === 'vertical' ? theme.spacing(1.5): undefined
   },
   textActive: {
     color: theme.palette.grey[800]
