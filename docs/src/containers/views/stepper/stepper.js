@@ -45,7 +45,19 @@ export default function () {
 
   return (
     <div>
-      <div>
+      <div style={{
+        width: 600
+      }}>
+        <Stepper
+          activeIndex={step}
+          clickable
+          onChange={_handleChange}
+          orientation='horizontal'
+          steps={steps} />
+      </div>
+      <div style={{
+        width: 200
+      }}>
         <Stepper
           activeIndex={step}
           clickable

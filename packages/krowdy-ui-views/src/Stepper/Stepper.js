@@ -1,6 +1,6 @@
 import React,
 {
-  memo, useCallback
+  memo, useCallback, useEffect, useRef, useState
   // useMemo
   // useCallback,
 //  useState
@@ -28,7 +28,8 @@ const Step = ({
   totalSteps,
   clickable,
   spacing,
-  height
+  height,
+  hiddenLabel
 }) => {
   const classes = useStyles({ active, height, index, orientation, spacing, totalSteps })
 
@@ -65,7 +66,7 @@ const Step = ({
             [classes.textActive]: active && !isCompleted
           })}
         variant={active && !isCompleted? 'h6': 'body2'} >
-        {label}
+        {active ? label: !hiddenLabel ? label : ''}
       </Typography>
       {
         index !== totalSteps - 1 && orientation ? (
@@ -89,13 +90,31 @@ const Stepper = ({
   // const orientation = 'vertical'
   const classes = useContainerStyles({ orientation, totalSteps: steps.length })
 
+  const [ tooLarge, setTooLarge ] = useState(orientation !== 'vertical')
+  const containerRef = useRef()
+
   const _handleSelectStep = useCallback((step) => () => {
     onChange(step)
   }, [ onChange ])
 
+  useEffect(() => {
+    if(orientation === 'vertical') return
+    if(steps.length > 1) {
+      const W = containerRef.current.offsetWidth
+
+      const _w = 60
+      const v = (W - _w * steps.length) / (steps.length - 1)
+
+      setTooLarge(v <= 10)
+    } else {
+      setTooLarge(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <StepperContainer height={height} orientation={orientation}>
-      <div className={classes.container}>
+      <div className={classes.container} ref={containerRef}>
         {
           steps && steps.length ? steps.map(({ _id, label }, index)=>{
             const completed = activeIndex > index
@@ -112,6 +131,7 @@ const Stepper = ({
                 Component={Component}
                 disabled={disabled}
                 height={height}
+                hiddenLabel={tooLarge}
                 index={index}
                 isCompleted={isCompleted}
                 key={_id}
@@ -198,12 +218,16 @@ const useStyles = makeStyles((theme)=>({
     flexDirection: ({ orientation }) => orientation ==='vertical' ? 'row': 'column',
     height       : ({ orientation, totalSteps, height, spacing }) => orientation ==='vertical' ? height ? `calc(100% / ${totalSteps - 1} - 28px)`: spacing + 4 + 24 : 2,
     justifyItems : 'center',
+    minWidth     : 32,
     // paddingBottom: ({ orientation, totalSteps, index }) => orientation ==='vertical' && index < totalSteps-1 ? `calc(100% / ${totalSteps - 1})`: 0,
     position     : 'relative'
   },
   stepLabel: {
     color     : theme.palette.grey[700],
-    marginLeft: ({ orientation }) => orientation === 'vertical' ? theme.spacing(1.5): undefined
+    marginLeft: ({ orientation }) => orientation === 'vertical' ? theme.spacing(1.5): undefined,
+    minWidth  : 28,
+    position  : ({ orientation }) => orientation === 'horizontal' ? 'absolute': undefined,
+    top       : ({ orientation }) => orientation === 'horizontal' ? 28: undefined
   },
   textActive: {
     color: theme.palette.grey[800]
