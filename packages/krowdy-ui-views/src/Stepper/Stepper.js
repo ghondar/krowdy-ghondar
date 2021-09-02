@@ -214,10 +214,12 @@ Stepper.propTypes = {
   activeIndex: PropTypes.number,
   classes    : PropTypes.object,
   clickable  : PropTypes.bool,
+  height     : PropTypes.number,
   isCompleted: PropTypes.bool,
   onChange   : PropTypes.func,
   onchange   : PropTypes.func,
   orientation: PropTypes.oneOf([ 'vertical', 'horizontal' ]),
+  spacing    : PropTypes.number,
   steps      : PropTypes.array
 }
 

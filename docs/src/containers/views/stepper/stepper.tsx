@@ -39,7 +39,7 @@ const steps = [
 export default function () {
   const [ step, setStep ] = useState(1)
 
-  const _handleChange = (value) => {
+  const _handleChange = (value: number) => {
     setStep(value)
   }
 

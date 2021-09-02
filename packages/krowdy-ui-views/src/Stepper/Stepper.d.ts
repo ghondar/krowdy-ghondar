@@ -9,7 +9,9 @@ export type StepperProps = {
   activeIndex?: number;
   onChange?: Function;
   clickable?: boolean;
-  isCompleted?: boolean
+  isCompleted?: boolean;
+  height?: number;
+  spacing?: number;
 };
 
 declare var Stepper: React.ComponentType<StepperProps>;
