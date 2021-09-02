@@ -152,7 +152,7 @@ const useContainerStyles = makeStyles(()=>({
     alignItems    : 'start',
     display       : 'flex',
     flexDirection : ({ orientation }) => orientation === 'vertical' ? 'column': 'row',
-    height        : ({ orientation }) => orientation === 'vertical' ? '100%': 64,
+    height        : ({ orientation }) => orientation === 'vertical' ? '100%': 72,
     justifyContent: ({ orientation, height }) => orientation === 'vertical' && !height ? 'inherit': 'space-between',
     justifyItems  : 'start'
     // position      : 'relative'
