@@ -12,6 +12,7 @@ import {
   CheckCircleRounded as CheckCircleRoundedIcon
   // RadioButtonUnchecked as RadioButtonUncheckedIcon
 } from '@material-ui/icons'
+import StepperContainer from './StepperContainer'
 
 const Step = ({
   active,
@@ -25,18 +26,20 @@ const Step = ({
   orientation,
   activeIndex,
   totalSteps,
-  clickeable
+  clickable,
+  spacing,
+  height
 }) => {
-  const classes =useStyles({ active, index, orientation, totalSteps })
+  const classes = useStyles({ active, height, index, orientation, spacing, totalSteps })
 
   return (
     <Component
       className={clsx(classes.step,
         {
-          [classes.marginStep]      : index,
-          [classes.buttonclickeable]: clickeable
+          [classes.marginStep]     : index,
+          [classes.buttonClickable]: clickable
         })}
-      {...clickeable && !isCompleted ? { onClick: onSelect } : {}}>
+      {...clickable && !isCompleted ? { onClick: onSelect } : {}}>
       <div
         className={clsx(classes.circle,
           {
@@ -77,43 +80,50 @@ const Stepper = ({
   steps = [],
   orientation = 'vertical',
   activeIndex = 1,
-  clickeable = false,
+  clickable = false,
   onChange= () =>{},
-  isCompleted
+  isCompleted,
+  height,
+  spacing = 24
 }) =>{
   // const orientation = 'vertical'
   const classes = useContainerStyles({ orientation, totalSteps: steps.length })
+
   const _handleSelectStep = useCallback((step) => () => {
     onChange(step)
   }, [ onChange ])
 
   return (
-    <div className={classes.container}>
-      {
-        steps && steps.length ? steps.map(({ _id, label }, index)=>{
-          const completed = activeIndex > index
-          const disabled = activeIndex < index
-          const Component = clickeable ? 'button':'div'
-          const active = activeIndex === index
+    <StepperContainer height={height} orientation={orientation}>
+      <div className={classes.container}>
+        {
+          steps && steps.length ? steps.map(({ _id, label }, index)=>{
+            const completed = activeIndex > index
+            const disabled = activeIndex < index
+            const Component = clickable ? 'button':'div'
+            const active = activeIndex === index
 
-          return (
-            <Step
-              active={active}
-              activeIndex={activeIndex}
-              clickeable={clickeable}
-              completed={completed}
-              Component={Component}
-              disabled={disabled}
-              index={index}
-              isCompleted={isCompleted}
-              key={_id}
-              label={label}
-              onSelect={_handleSelectStep(index)}
-              orientation={orientation}
-              totalSteps={steps.length} />
-          )}) : null
-      }
-    </div>
+            return (
+              <Step
+                active={active}
+                activeIndex={activeIndex}
+                clickable={clickable}
+                completed={completed}
+                Component={Component}
+                disabled={disabled}
+                height={height}
+                index={index}
+                isCompleted={isCompleted}
+                key={_id}
+                label={label}
+                onSelect={_handleSelectStep(index)}
+                orientation={orientation}
+                spacing={spacing}
+                totalSteps={steps.length} />
+            )}) : null
+        }
+      </div>
+    </StepperContainer>
   )
 }
 
@@ -121,15 +131,16 @@ const useContainerStyles = makeStyles(()=>({
   container: {
     alignItems    : 'start',
     display       : 'flex',
-    flexDirection : ({ orientation }) => orientation ==='vertical' ? 'column': 'row',
-    justifyContent: 'space-between',
+    flexDirection : ({ orientation }) => orientation === 'vertical' ? 'column': 'row',
+    height        : ({ orientation }) => orientation === 'vertical' ? '100%': 64,
+    justifyContent: ({ orientation, height }) => orientation === 'vertical' && !height ? 'inherit': 'space-between',
     justifyItems  : 'start'
     // position      : 'relative'
   }
 }), { name: 'Stepper' })
 
-const useStyles = makeStyles(({ palette, spacing })=>({
-  buttonclickeable: {
+const useStyles = makeStyles((theme)=>({
+  buttonClickable: {
     background: 'none',
     border    : 'none',
     cursor    : 'pointer',
@@ -146,19 +157,19 @@ const useStyles = makeStyles(({ palette, spacing })=>({
     width         : 24
   },
   conector: {
-    background: palette.primary.main,
-    height    : ({ orientation }) => orientation ==='vertical' ? 'calc(100% - 28px)' : 2,
+    background: theme.palette.primary.main,
+    height    : ({ orientation, height, spacing }) => orientation ==='vertical' ? height ? 'calc(100% - 24px - 4px)': spacing : 2,
     left      : ({ orientation }) => orientation ==='horizontal' ? 'calc(50% + 14px)' : 12,
     position  : 'absolute',
-    top       : ({ orientation }) => orientation ==='vertical' ? 'calc(26px)'  : 12,
+    top       : ({ orientation, height, spacing }) => orientation ==='vertical' ? height ? 'calc(100% - (100% - 24px - 4px)/ 2)': spacing / 2 + 24 + 4 : 12,
     width     : ({ orientation }) => orientation ==='horizontal' ? 'calc(100% - 28px)' : 2
   },
   disabled: {
-    border: `3px solid ${palette.grey[400]}`,
-    color : palette.grey[400]
+    border: `3px solid ${theme.palette.grey[400]}`,
+    color : theme.palette.grey[400]
   },
   disabledLine: {
-    background: palette.grey[400]
+    background: theme.palette.grey[400]
     // height    : ({ orientation, totalSteps }) => orientation ==='vertical' ? `calc(100% + (100% / ${totalSteps - 1}) + 2px)` : 2,
     // top       : ({ orientation }) => orientation ==='vertical' ? 'calc(100% + 6px)' : 10
   },
@@ -167,8 +178,8 @@ const useStyles = makeStyles(({ palette, spacing })=>({
   },
   indexText: {
     alignItems    : 'center',
-    // background    : ({ active }) => active ? palette.primary.main: '',
-    background    : ({ active }) => active ? `linear-gradient(to top, ${palette.primary[100]} 0%, ${palette.primary[100]} 50%, white 40%)`: '',
+    // background    : ({ active }) => active ? theme.palette.primary.main: '',
+    background    : ({ active }) => active ? `linear-gradient(to top, ${theme.palette.primary[100]} 0%, ${theme.palette.primary[100]} 50%, white 40%)`: '',
     borderRadius  : '50%',
     display       : 'flex',
     fontWeight    : 500,
@@ -178,31 +189,31 @@ const useStyles = makeStyles(({ palette, spacing })=>({
     width         : 18
   },
   selected: {
-    border: `3px solid ${palette.primary.main}`
+    border: `3px solid ${theme.palette.primary.main}`
   },
   step: {
     alignItems   : 'center',
     display      : 'flex',
-    flex         : 1,
+    flex         : ({ orientation, height }) => orientation === 'vertical' && !height ? 'inherit': 1,
     flexDirection: ({ orientation }) => orientation ==='vertical' ? 'row': 'column',
-    height       : ({ orientation, totalSteps }) => orientation ==='vertical' ? `calc(100% / ${totalSteps - 1} - 28px)` : 2,
+    height       : ({ orientation, totalSteps, height, spacing }) => orientation ==='vertical' ? height ? `calc(100% / ${totalSteps - 1} - 28px)`: spacing + 4 + 24 : 2,
     justifyItems : 'center',
-    paddingBottom: ({ orientation, totalSteps, index }) => orientation ==='vertical' && index < totalSteps-1 ? `calc(100% / ${totalSteps - 1})`: 0,
+    // paddingBottom: ({ orientation, totalSteps, index }) => orientation ==='vertical' && index < totalSteps-1 ? `calc(100% / ${totalSteps - 1})`: 0,
     position     : 'relative'
   },
   stepLabel: {
-    color     : palette.grey[700],
-    marginLeft: spacing(1.5)
+    color     : theme.palette.grey[700],
+    marginLeft: theme.spacing(1.5)
   },
   textActive: {
-    color: palette.grey[800]
+    color: theme.palette.grey[800]
   }
 }), { name: 'Step' })
 
 Stepper.propTypes = {
   activeIndex: PropTypes.number,
   classes    : PropTypes.object,
-  clickeable : PropTypes.bool,
+  clickable  : PropTypes.bool,
   isCompleted: PropTypes.bool,
   onChange   : PropTypes.func,
   onchange   : PropTypes.func,

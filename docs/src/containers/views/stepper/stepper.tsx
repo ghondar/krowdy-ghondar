@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Grid } from '@krowdy-ui/core'
 import { Stepper } from '@krowdy-ui/views'
 
 const steps = [
@@ -40,19 +39,40 @@ const steps = [
 export default function () {
   const [ step, setStep ] = useState(1)
 
-  const _handleChange = (value: number) => {
+  const _handleChange = (value) => {
     setStep(value)
   }
 
   return (
-    <Grid
-      container>
+    <div>
+      <div>
+        <Stepper
+          activeIndex={step}
+          clickable
+          onChange={_handleChange}
+          orientation='horizontal'
+          steps={steps} />
+      </div>
       <Stepper
         activeIndex={step}
-        clickeable
+        clickable
+        height={800}
         onChange={_handleChange}
-        orientation='horizontal'
+        orientation='vertical'
         steps={steps} />
-    </Grid>
+      <Stepper
+        activeIndex={step}
+        clickable
+        onChange={_handleChange}
+        orientation='vertical'
+        steps={steps} />
+      <Stepper
+        activeIndex={step}
+        clickable
+        onChange={_handleChange}
+        orientation='vertical'
+        spacing={48}
+        steps={steps} />
+    </div>
   )
 }

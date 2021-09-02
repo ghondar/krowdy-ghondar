@@ -8,7 +8,7 @@ export type StepperProps = {
   orientation?: string;
   activeIndex?: number;
   onChange?: Function;
-  clickeable?: boolean;
+  clickable?: boolean;
   isCompleted?: boolean
 };
 
