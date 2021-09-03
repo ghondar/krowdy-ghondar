@@ -83,6 +83,19 @@ export default function () {
           steps={steps.slice(0, 3)} />
       </div>
       <div style={{
+        margin : '4px 0',
+        outline: 'solid 1px black',
+        width  : 600
+      }}>
+        <Stepper
+          absolute
+          activeIndex={step}
+          clickable
+          onChange={_handleChange}
+          orientation='horizontal'
+          steps={steps.concat(steps)} />
+      </div>
+      <div style={{
         width: 200
       }}>
         <Stepper
