@@ -4,7 +4,7 @@ import { Stepper } from '@krowdy-ui/views'
 const steps = [
   {
     _id  : '1',
-    label: 'Primer step'
+    label: 'Video Cuestionario'
   },
   {
     _id  : '2',
@@ -46,7 +46,9 @@ export default function () {
   return (
     <div>
       <div style={{
-        width: 600
+        margin : '4px 0',
+        outline: 'solid 1px black',
+        width  : 600
       }}>
         <Stepper
           activeIndex={step}
@@ -54,6 +56,31 @@ export default function () {
           onChange={_handleChange}
           orientation='horizontal'
           steps={steps} />
+      </div>
+      <div style={{
+        margin : '4px 0',
+        outline: 'solid 1px black',
+        width  : 600
+      }}>
+        <Stepper
+          activeIndex={step}
+          clickable
+          onChange={_handleChange}
+          orientation='horizontal'
+          steps={steps.slice(0, 3)} />
+      </div>
+      <div style={{
+        margin : '4px 0',
+        outline: 'solid 1px black',
+        width  : 600
+      }}>
+        <Stepper
+          absolute
+          activeIndex={step}
+          clickable
+          onChange={_handleChange}
+          orientation='horizontal'
+          steps={steps.slice(0, 3)} />
       </div>
       <div style={{
         width: 200

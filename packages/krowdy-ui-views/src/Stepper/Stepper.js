@@ -13,6 +13,7 @@ import {
   // RadioButtonUnchecked as RadioButtonUncheckedIcon
 } from '@material-ui/icons'
 import StepperContainer from './StepperContainer'
+import StepConnector from './StepConnector'
 
 const Step = ({
   active,
@@ -29,9 +30,10 @@ const Step = ({
   clickable,
   spacing,
   height,
-  hiddenLabel
+  hiddenLabel,
+  absolute
 }) => {
-  const classes = useStyles({ active, height, index, orientation, spacing, totalSteps })
+  const classes = useStyles({ absolute, active, height, index, orientation, spacing, totalSteps })
 
   return (
     <Component
@@ -85,7 +87,8 @@ const Stepper = ({
   onChange= () =>{},
   isCompleted,
   height,
-  spacing = 24
+  spacing = 24,
+  absolute
 }) =>{
   // const orientation = 'vertical'
   const classes = useContainerStyles({ orientation, totalSteps: steps.length })
@@ -124,6 +127,7 @@ const Stepper = ({
 
             return (
               <Step
+                absolute={absolute}
                 active={active}
                 activeIndex={activeIndex}
                 clickable={clickable}
@@ -142,6 +146,11 @@ const Stepper = ({
                 totalSteps={steps.length} />
             )}) : null
         }
+        {absolute && (
+          steps.slice(0, steps.length - 1).map((step, index) => (
+            <StepConnector index={index} key={`connector-${index}`} totalSteps={steps.length} />
+          ))
+        )}
       </div>
     </StepperContainer>
   )
@@ -154,8 +163,8 @@ const useContainerStyles = makeStyles(()=>({
     flexDirection : ({ orientation }) => orientation === 'vertical' ? 'column': 'row',
     height        : ({ orientation }) => orientation === 'vertical' ? '100%': 72,
     justifyContent: ({ orientation, height }) => orientation === 'vertical' && !height ? 'inherit': 'space-between',
-    justifyItems  : 'start'
-    // position      : 'relative'
+    justifyItems  : 'start',
+    position      : 'relative'
   }
 }), { name: 'Stepper' })
 
@@ -182,6 +191,7 @@ const useStyles = makeStyles((theme)=>({
     left      : ({ orientation }) => orientation ==='horizontal' ? 'calc(50% + 14px)' : 12,
     position  : 'absolute',
     top       : ({ orientation, height, spacing }) => orientation ==='vertical' ? height ? 'calc(100% - (100% - 24px - 4px)/ 2)': spacing / 2 + 24 + 4 : 12,
+    visibility: ({ absolute }) => absolute ? 'hidden': 'visible',
     width     : ({ orientation }) => orientation ==='horizontal' ? 'calc(100% - 28px)' : 2
   },
   disabled: {
@@ -214,7 +224,7 @@ const useStyles = makeStyles((theme)=>({
   step: {
     alignItems   : 'center',
     display      : 'flex',
-    flex         : ({ orientation, height }) => orientation === 'vertical' && !height ? 'inherit': 1,
+    flex         : ({ orientation, height, absolute }) => absolute ? undefined: orientation === 'vertical' && !height ? 'inherit': 1,
     flexDirection: ({ orientation }) => orientation ==='vertical' ? 'row': 'column',
     height       : ({ orientation, totalSteps, height, spacing }) => orientation ==='vertical' ? height ? `calc(100% / ${totalSteps - 1} - 28px)`: spacing + 4 + 24 : 2,
     justifyItems : 'center',
@@ -225,8 +235,10 @@ const useStyles = makeStyles((theme)=>({
   stepLabel: {
     color     : theme.palette.grey[700],
     marginLeft: ({ orientation }) => orientation === 'vertical' ? theme.spacing(1.5): undefined,
+    maxWidth  : ({ orientation }) => orientation === 'horizontal' ? 90: undefined,
     minWidth  : 28,
     position  : ({ orientation }) => orientation === 'horizontal' ? 'absolute': undefined,
+    textAlign : ({ orientation }) => orientation === 'horizontal' ? 'center': undefined,
     top       : ({ orientation }) => orientation === 'horizontal' ? 28: undefined
   },
   textActive: {
@@ -235,6 +247,7 @@ const useStyles = makeStyles((theme)=>({
 }), { name: 'Step' })
 
 Stepper.propTypes = {
+  absolute   : PropTypes.bool,
   activeIndex: PropTypes.number,
   classes    : PropTypes.object,
   clickable  : PropTypes.bool,
