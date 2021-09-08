@@ -425,14 +425,16 @@ const AuthProvider = ({
   const _handleCloseModal = useCallback(()=>{
     setState(prev=>({
       ...prev,
-      openBackdrop: false
+      customMainText: '',
+      openBackdrop  : false
     }))
   }, [])
 
-  const _handleOpenModal = useCallback(()=>{
+  const _handleOpenModal = useCallback((customMainText)=>{
     setState(prev=>({
       ...prev,
-      openBackdrop: true
+      customMainText: (typeof(customMainText) === 'string') ? customMainText : '',
+      openBackdrop  : true
     }))
   }, [])
 
@@ -500,7 +502,7 @@ const AuthProvider = ({
       {paramsLinkedIn.code || paramsLinkedIn.error ? <LinkedInPopUp /> : null}
       {
         state.openBackdrop ?(
-          <OnetapAuth />
+          <OnetapAuth customMainText={state.customMainText} />
         ) : null
       }
     </LoginContext.Provider>
