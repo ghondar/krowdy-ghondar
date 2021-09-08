@@ -4,7 +4,7 @@ import { Close as CloseIcon } from '@material-ui/icons'
 import LoginSinglePage from '../LoginSinglePage'
 import { useAuth } from '../utils'
 
-const OnetapAuth = () => {
+const OnetapAuth = ({ customMainText }) => {
   const classes = useStyles()
   const { onClose } = useAuth() || {}
 
@@ -23,7 +23,8 @@ const OnetapAuth = () => {
             fontSize='small' />
         </IconButton>
         <CardContent className={classes.cardContent}>
-          <LoginSinglePage />
+          <LoginSinglePage
+            customMainText={customMainText} />
         </CardContent>
       </Card>
     </Backdrop>

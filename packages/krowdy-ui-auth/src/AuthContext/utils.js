@@ -3,6 +3,7 @@
 export const initialState = {
   accessToken        : '',
   allowAds           : true,
+  customMainText     : '',
   flowFinished       : false,
   iduser             : '',
   isNew              : false,
